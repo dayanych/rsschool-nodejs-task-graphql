@@ -1,12 +1,8 @@
-import { PrismaClient } from '@prisma/client';
-import { HttpErrors } from '@fastify/sensible';
 import { UUIDType } from '../../types/uuid.js';
-import { userType, createUserInputType, changeUserInputType } from './types/user.type.js';
-
-interface Context {
-  prisma: PrismaClient;
-  httpErrors: HttpErrors;
-}
+import { Context } from '../../interfaces/context.interface.js';
+import { UserType } from './types/user.type.js';
+import { ChangeUserInputType } from './types/change-user-input.type.js';
+import { CreateUserInputType } from './types/create-user-input.type.js';
 
 interface CreateUserArgs {
   dto: {
@@ -29,10 +25,10 @@ interface ChangeUserArgs {
 
 export const usersMutation = {
   createUser: {
-    type: userType,
+    type: UserType,
     args: {
       dto: {
-        type: createUserInputType,
+        type: CreateUserInputType,
       }
     },
     resolve: async (_, args: CreateUserArgs, context: Context) => {
@@ -49,7 +45,7 @@ export const usersMutation = {
     },
   },
   deleteUser: {
-    type: userType,
+    type: UserType,
     args: {
       id: {
         type: UUIDType,
@@ -64,7 +60,7 @@ export const usersMutation = {
         },
       });
 
-      if (user === null) {
+      if (!user) {
         throw httpErrors.notFound();
       }
 
@@ -78,13 +74,13 @@ export const usersMutation = {
     }
   },
   changeUser: {
-    type: userType,
+    type: UserType,
     args: {
       id: {
         type: UUIDType,
       },
       dto: {
-        type: changeUserInputType,
+        type: ChangeUserInputType,
       }
     },
     resolve: async (_, args: ChangeUserArgs, context: Context) => {
@@ -96,7 +92,7 @@ export const usersMutation = {
         },
       });
 
-      if (user === null) {
+      if (!user) {
         throw httpErrors.notFound();
       }
 

@@ -1,7 +1,13 @@
-import { GraphQLFloat, GraphQLInputObjectType, GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLFloat, GraphQLObjectType, GraphQLString } from 'graphql';
 import { UUIDType } from '../../../types/uuid.js';
+import { Context } from '../../../interfaces/context.interface.js';
+import { ProfileType } from '../../profiles/types/profile.type.js';
 
-export const userType = new GraphQLObjectType({
+interface UserParent {
+  id: string;
+}
+
+export const UserType = new GraphQLObjectType({
   name: 'User',
   fields: {
     id: {
@@ -13,29 +19,16 @@ export const userType = new GraphQLObjectType({
     balance: {
       type: GraphQLFloat,
     },
-  }
-});
-
-export const createUserInputType = new GraphQLInputObjectType({
-  name: 'CreateUserInput',
-  fields: {
-    name: {
-      type: GraphQLString,
-    },
-    balance: {
-      type: GraphQLFloat,
-    },
-  }
-});
-
-export const changeUserInputType = new GraphQLInputObjectType({
-  name: 'ChangeUserInput',
-  fields: {
-    name: {
-      type: GraphQLString,
-    },
-    balance: {
-      type: GraphQLFloat,
-    },
+    profile: {
+      type: ProfileType,
+      resolve: async (parent: UserParent, __, context: Context) => {
+        const { prisma } = context;
+        return await prisma.profile.findUnique({
+          where: {
+            userId: parent.id
+          }
+        });
+      }
+    }
   }
 });

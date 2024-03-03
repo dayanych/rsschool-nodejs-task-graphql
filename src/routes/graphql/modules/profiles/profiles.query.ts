@@ -1,41 +1,41 @@
 import { GraphQLList } from 'graphql';
 import { Context } from '../../interfaces/context.interface.js';
+import { ProfileType } from './types/profile.type.js';
 import { UUIDType } from '../../types/uuid.js';
-import { UserType } from './types/user.type.js';
 
-interface UserArgs {
+interface ProfileArgs {
   id: string;
 }
 
-export const usersQuery = {
-  users: {
-    type: new GraphQLList(UserType),
+export const profilesQuery = {
+  profiles: {
+    type: new GraphQLList(ProfileType),
     resolve: async (_source, _args, context: Context) => {
       const { prisma } = context;
-      const users = await prisma.user.findMany();
-      return users;
+      const profiles = await prisma.profile.findMany();
+      return profiles;
     }
   },
-  user: {
-    type: UserType,
+  profile: {
+    type: ProfileType,
     args: {
       id: { type: UUIDType }
     },
-    resolve: async (_source, args: UserArgs, context: Context) => {
+    resolve: async (_, args: ProfileArgs, context: Context) => {
       const { prisma, httpErrors } = context;
       const { id } = args;
 
-      const user = await prisma.user.findUnique({
+      const profile = await prisma.profile.findUnique({
         where: {
           id,
         },
       });
 
-      if (!user) {
+      if (!profile) {
         throw httpErrors.notFound();
       }
 
-      return user;
+      return profile;
     }
   }
 };
