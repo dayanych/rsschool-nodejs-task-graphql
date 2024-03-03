@@ -7,7 +7,7 @@ interface PostArgs {
   id: string;
 }
 
-export const PostsQuery = {
+export const postsQuery = {
   posts: {
     type: new GraphQLList(PostType),
     resolve: async (_, __, context: Context) => {
@@ -32,10 +32,6 @@ export const PostsQuery = {
           id,
         },
       });
-
-      if (!post) {
-        throw context.httpErrors.notFound();
-      }
 
       return post;
     },

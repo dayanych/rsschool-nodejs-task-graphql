@@ -22,7 +22,7 @@ export const usersQuery = {
       id: { type: UUIDType }
     },
     resolve: async (_source, args: UserArgs, context: Context) => {
-      const { prisma, httpErrors } = context;
+      const { prisma } = context;
       const { id } = args;
 
       const user = await prisma.user.findUnique({
@@ -30,10 +30,6 @@ export const usersQuery = {
           id,
         },
       });
-
-      if (!user) {
-        throw httpErrors.notFound();
-      }
 
       return user;
     }

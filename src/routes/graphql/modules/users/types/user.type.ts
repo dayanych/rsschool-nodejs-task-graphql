@@ -24,11 +24,13 @@ export const UserType: GraphQLObjectType<UserParent, Context> = new GraphQLObjec
       type: ProfileType,
       resolve: async (parent: UserParent, __, context: Context) => {
         const { prisma } = context;
-        return await prisma.profile.findUnique({
+        const profile = await prisma.profile.findUnique({
           where: {
             userId: parent.id
           }
         });
+
+        return profile;
       }
     },
     posts: {
