@@ -1,7 +1,8 @@
-import { GraphQLBoolean, GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLBoolean, GraphQLInt, GraphQLObjectType } from 'graphql';
 import { UUIDType } from '../../../types/uuid.js';
 import { MemberTypeType } from '../../member-types/types/member-type.type.js';
 import { Context } from '../../../interfaces/context.interface.js';
+import { MemberTypeIdType } from '../../member-types/types/member-type-id.type.js';
 
 interface ProfileParent {
   memberTypeId: string;
@@ -23,7 +24,7 @@ export const ProfileType = new GraphQLObjectType({
       type: UUIDType,
     },
     memberTypeId: {
-      type: GraphQLString,
+      type: MemberTypeIdType,
     },
     memberType: {
       type: MemberTypeType,

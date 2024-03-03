@@ -1,7 +1,7 @@
 import { GraphQLList } from 'graphql';
 import { MemberTypeType } from './types/member-type.type.js';
 import { Context } from '../../interfaces/context.interface.js';
-import { UUIDType } from '../../types/uuid.js';
+import { MemberTypeIdType } from './types/member-type-id.type.js';
 
 interface MemberTypeArgs {
   id: string;
@@ -19,7 +19,7 @@ export const memberTypesQuery = {
   memberType: {
     type: MemberTypeType,
     args: {
-      id: { type: UUIDType }
+      id: { type: MemberTypeIdType }
     },
     resolve: async (_source, args: MemberTypeArgs, context: Context) => {
       const { prisma, httpErrors } = context;
