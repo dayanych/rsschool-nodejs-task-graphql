@@ -3,6 +3,7 @@ import { Context } from '../../interfaces/context.interface.js';
 import { CreatePostInputType } from './types/create-post-input.type.js';
 import { ChangePostInputType } from './types/change-post-input.type.js';
 import { UUIDType } from '../../types/uuid.js';
+import { GraphQLBoolean } from 'graphql';
 
 interface CreatePostArgs {
   dto: {
@@ -70,7 +71,7 @@ export const postsMutation = {
     }
   },
   deletePost: {
-    type: PostType,
+    type: GraphQLBoolean,
     args: {
       id: {
         type: UUIDType,
@@ -94,6 +95,8 @@ export const postsMutation = {
           id: args.id,
         },
       });
+
+      return true;
     }
   }
 };

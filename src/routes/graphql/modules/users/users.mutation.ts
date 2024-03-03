@@ -51,7 +51,7 @@ export const usersMutation = {
     },
   },
   deleteUser: {
-    type: UserType,
+    type: GraphQLBoolean,
     args: {
       id: {
         type: UUIDType,
@@ -75,6 +75,8 @@ export const usersMutation = {
           id: args.id,
         },
       });
+
+      return true;
     }
   },
   changeUser: {

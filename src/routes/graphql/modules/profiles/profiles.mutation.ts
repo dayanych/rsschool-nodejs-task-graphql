@@ -1,3 +1,4 @@
+import { GraphQLBoolean } from 'graphql';
 import { Context } from '../../interfaces/context.interface.js';
 import { UUIDType } from '../../types/uuid.js';
 import { ChangeProfileInputType } from './types/change-profile-input.type.js';
@@ -79,7 +80,7 @@ export const profilesMutation = {
     },
   },
   deleteProfile: {
-    type: ProfileType,
+    type: GraphQLBoolean,
     args: {
       id: {
         type: UUIDType,
@@ -103,6 +104,8 @@ export const profilesMutation = {
           id: args.id,
         },
       });
+
+      return true;
     },
   },
 };
