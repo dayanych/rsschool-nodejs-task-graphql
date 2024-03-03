@@ -98,13 +98,11 @@ export const profilesMutation = {
         throw httpErrors.notFound();
       }
 
-      const deletedProfile = await prisma.profile.delete({
+      await prisma.profile.delete({
         where: {
           id: args.id,
         },
       });
-
-      return deletedProfile;
     },
   },
 };
