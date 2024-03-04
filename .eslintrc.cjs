@@ -32,5 +32,16 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
+    'linebreak-style': ['error', 'unix'],
+    'quotes': ['error', 'single'],
+    'comma-spacing': ['error', { 'before': false, 'after': true }],
+    'semi-spacing': ['error', { 'before': false, 'after': true }],
+    'array-bracket-newline': ['error', { 'multiline': true }],
+    'semi': ['error', 'always'],
+    'semi-style': ['error', 'last'],
+    'eol-last': ['error', 'always'],
+    'object-curly-spacing': ['error', 'always'],
+    'array-bracket-spacing': ['error', 'never'],
+    'no-trailing-spaces': 'error'
   },
 };
