@@ -32,6 +32,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
         contextValue: {
           prisma,
           httpErrors,
+          dataloaders: new Map(),
         },
       });
 
